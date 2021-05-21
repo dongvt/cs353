@@ -12,14 +12,14 @@ int main()
     std::cout << "Insert second path" << std::endl;
     std::cin >> path2;
 
-    std::cout << "Now there is the comparison";
+    //Call get true dire with Path1 and Path2
 
     return 0;
 }
 
 std::string getTruePath(std::string path) 
 {
-    std::string sDir = ""; //Simple directory without aditions
+    std::string sDir = ""; //The current directory
 
     int numSlashes = 0;
 
@@ -27,12 +27,13 @@ std::string getTruePath(std::string path)
     {
         if(path[i] == '.')
         {
+            //Here is when we find ../
             if (path[i + 1] == '.')
             {
-                
+
             }
-            else
-                i++;
+            else //The path begin with the current directory
+                i++; //This is dummy to avoid errors
         }
     }
 }
