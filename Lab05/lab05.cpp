@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 
-int main() 
+
+int main(int argc, char * argv[]) 
 {
     std::string path1;
     std::string path2;
@@ -11,7 +12,8 @@ int main()
 
     std::cout << "Insert second path" << std::endl;
     std::cin >> path2;
-
+    
+    getTruePath(path1) == getTruePath(path2)
     //Call get true dire with Path1 and Path2
 
     return 0;
@@ -20,8 +22,6 @@ int main()
 std::string getTruePath(std::string path) 
 {
     std::string sDir = ""; //The current directory
-
-    int numSlashes = 0;
 
     for (int i = 0; i < path.length() ;i++)
     {
@@ -36,4 +36,5 @@ std::string getTruePath(std::string path)
                 i++; //This is dummy to avoid errors
         }
     }
+    return sDir;
 }
