@@ -13,11 +13,17 @@ static const char separator = '/';
 static const char separator = '\\';
 #endif
 
-//Templates
+//Function declarations
 std::string getTruePath(std::string path);
 std::string normalizePath(std::string path);
 int initialSlashCount(std::string path);
 
+/*******************************************
+* main() will prompt the user for two different
+* file paths. Afterwhich, it will then normalize
+* both paths and validate whether they are
+* homographs or not.
+********************************************/
 int main()
 {
     std::string path1;
@@ -38,6 +44,14 @@ int main()
     return 0;
 }
 
+/*******************************************
+* getTruePath() will be passed a file path
+* and return a path that does not contain
+* relative path symbols such as '..'
+* It does this by utilizing the current path
+* to fill in the relative path with the proper
+* file names and locations
+********************************************/
 std::string getTruePath(std::string path)
 {
     char cCurrentPath[FILENAME_MAX];
@@ -93,6 +107,15 @@ std::string getTruePath(std::string path)
     return sDir;
 }
 
+/*******************************************
+* normalizePath() will take a path and replace
+* any back or forward slash with a normal 
+* seperator, '\\'
+* This function will be utilized to ensure that
+* all paths being worked on are in the same 
+* format, which includes transforming the path 
+* to all lowercase letters
+********************************************/
 std::string normalizePath(std::string path)
 {
     for (int i = 0; i < path.length(); i++)
@@ -109,6 +132,11 @@ std::string normalizePath(std::string path)
     return path;
 }
 
+/*******************************************
+* initialSlashCount will simply return the
+* initial number of slashes a given path
+* contains
+********************************************/
 int initialSlashCount(std::string path)
 {
     int count = 0;
