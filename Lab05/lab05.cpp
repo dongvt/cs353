@@ -1,3 +1,17 @@
+/***********************************************************
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * asdkjhasdkjh
+ * ***********************************************************/
 #include <iostream>
 #include <string>
 #include <stdio.h> // defines FILENAME_MAX for current directory
@@ -18,6 +32,10 @@ std::string getTruePath(std::string path);
 std::string normalizePath(std::string path);
 int initialSlashCount(std::string path);
 
+/**
+ * 
+ * 
+ */
 int main()
 {
     std::string path1;
@@ -38,6 +56,9 @@ int main()
     return 0;
 }
 
+/**
+ * 
+ */
 std::string getTruePath(std::string path)
 {
     char cCurrentPath[FILENAME_MAX];
@@ -57,9 +78,9 @@ std::string getTruePath(std::string path)
             slashCount--;
         }
 
-        if (path[i] == '.')
+        if (path[i] == '.' || path[i] == '~')
         {
-            //Here is when we find ../ (parent operator)
+            //Here is when we find ../ (parent operator) 
             if (path[i + 1] == '.')
             {
                 i += 2;
@@ -79,7 +100,7 @@ std::string getTruePath(std::string path)
                 //decrement directories
                 slashCount--;
             }
-            else if (path[i + 1] == separator) //The path begin with the current directory
+            else if (path[i + 1] == separator || path[i] == '~') //The path begin with the current directory
             {
                 i++;
             }
@@ -109,6 +130,9 @@ std::string normalizePath(std::string path)
     return path;
 }
 
+/**
+ * 
+ */
 int initialSlashCount(std::string path)
 {
     int count = 0;
