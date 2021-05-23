@@ -120,7 +120,7 @@ std::string getTruePath(std::string path)
 
 /**
  * NORMALIZEPATH
- * Canonizes the file paths by converting
+ * Canonicalizes the file paths by converting
  * all letters to lowercase and converting
  * slash symbols to a unified format, since slash
  * symbols in a file path are different depending
