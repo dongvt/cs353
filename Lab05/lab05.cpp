@@ -1,9 +1,10 @@
 /***********************************************************************
 * Program:
-*    Week 13, Homographs
+*    Lab 05, Homographs
 *    Brother Wilson, CS453
 * Authors:
-*    Derek Washburn
+*    Derek Washburn, Govert Carreno, Abhishek Humagain, Josh Nestman
+*    Davi Neves, Robert Jones
 * Summary:
 *    This program prompts the user to enter two file paths.
 *    The paths are compared, taking special characters such as
@@ -51,7 +52,10 @@ int main()
     path1 = normalizePath(path1);
     path2 = normalizePath(path2);
 
-    std::cout << "The paths are " << ((getTruePath(path1) == getTruePath(path2)) ? "" : "NOT") << " homographs" << std::endl;
+    std::cout << "The paths are " 
+                //If both cannons are the same, they are homomograph
+              << ((getTruePath(path1) == getTruePath(path2)) ? "" : "NOT") 
+              << " homographs" << std::endl;
 
     return 0;
 }
@@ -60,8 +64,8 @@ int main()
  * GETTRUEPATH
  * Applies the navigation instructions signified by
  * ".", "..", and "~" symbols. "." means the current
- * directory, ".." means the previous directory,
- * and "~" means the root directory.
+ * directory, ".." means the parent directory,
+ * and "~" means the home directory.
  ***************************************************/
 std::string getTruePath(std::string path)
 {
@@ -125,6 +129,8 @@ std::string getTruePath(std::string path)
  * slash symbols to a unified format, since slash
  * symbols in a file path are different depending
  * on the operating system.
+ * INPUT: String: file path
+ * OUTPUT: String: normalize lowercase path.
  ************************************************/
 std::string normalizePath(std::string path)
 {
@@ -146,6 +152,8 @@ std::string normalizePath(std::string path)
  * INITIALSLASHCOUNT
  * Returns the number of slash symbols used in
  * the file path.
+ * INPUT: String: file path
+ * OUTPUT: Number of slashes/directories.
  *********************************************/
 int initialSlashCount(std::string path)
 {
