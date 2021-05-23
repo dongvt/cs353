@@ -1,17 +1,15 @@
-/***********************************************************
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * asdkjhasdkjh
- * ***********************************************************/
+/***********************************************************************
+* Program:
+*    Week 13, Homographs
+*    Brother Wilson, CS453
+* Authors:
+*    Derek Washburn
+* Summary:
+*    This program prompts the user to enter two file paths.
+*    The paths are compared, taking special characters such as
+*    ".", "..", and "~" into account, and the program informs the
+*    user whether the two paths are homographs of each other.
+************************************************************************/
 #include <iostream>
 #include <string>
 #include <stdio.h> // defines FILENAME_MAX for current directory
@@ -33,8 +31,10 @@ std::string normalizePath(std::string path);
 int initialSlashCount(std::string path);
 
 /**
- * 
- * 
+ * MAIN
+ * Prompts the user for two file paths. The paths are
+ * compared, and the user is informed whether they are
+ * homographs.
  */
 int main()
 {
@@ -57,7 +57,11 @@ int main()
 }
 
 /**
- * 
+ * GETTRUEPATH
+ * Applies the navigation instructions signified by
+ * ".", "..", and "~" symbols. "." means the current
+ * directory, ".." means the previous directory,
+ * and "~" means the root directory.
  */
 std::string getTruePath(std::string path)
 {
@@ -100,7 +104,7 @@ std::string getTruePath(std::string path)
                 //decrement directories
                 slashCount--;
             }
-            else if (path[i + 1] == separator || path[i] == '~') //The path begin with the current directory
+            else if (path[i + 1] == separator || path[i] == '~') //The path begins with the current directory
             {
                 i++;
             }
@@ -114,6 +118,14 @@ std::string getTruePath(std::string path)
     return sDir;
 }
 
+/**
+ * NORMALIZEPATH
+ * Canonizes the file paths by converting
+ * all letters to lowercase and converting
+ * slash symbols to a unified format, since slash
+ * symbols in a file path are different depending
+ * on the operating system.
+ */
 std::string normalizePath(std::string path)
 {
     for (int i = 0; i < path.length(); i++)
@@ -131,7 +143,9 @@ std::string normalizePath(std::string path)
 }
 
 /**
- * 
+ * INITIALSLASHCOUNT
+ * Returns the number of slash symbols used in
+ * the file path.
  */
 int initialSlashCount(std::string path)
 {
