@@ -28,16 +28,17 @@ std:: string genQuery(std::string user, std::string pass);
  *************************************************************/
 int main() 
 {
-    std::string username, password, query;
+    std::string username, password, query, queryTest1;
 
     std::cout << "Enter your username: ";
     std::getline(std::cin , username);
     std::cout << "Enter your password: ";
     std::getline(std::cin , password);
-
     query = genQuery(username,password);
+    queryTest1 = testUser(username,password);
+    
     std::cout << query;
-
+    std::cout << queryTest1;
     return 0;
 }
 
@@ -53,6 +54,25 @@ std::string genQuery(std::string user, std::string pass)
                       + "\' AND password = \'" 
                       + pass
                       + "\'"; 
+
+    return query;
+}
+
+/****************************************************
+ * Test 1
+ * Calls genQuery passes two strings user and password 
+ * return one single string (an SQL query) 
+*****************************************************/
+std::string testUser()
+{
+    std::string username, password, query;
+
+    //test1: dneves
+    username = dneves;
+    password = 1234_D2;
+
+    query = genQuery(username,password);
+    std::cout << query;
 
     return query;
 }
