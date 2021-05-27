@@ -16,10 +16,14 @@
 #include <string>
 
 //Templates
-std::string weak();
-std::string strong();
-std:: string genQuery(std::string user, std::string pass);
-std:: string testUser();
+std::string genQuery(std::string user, std::string pass);
+std::string getQueryWeak(std::string user, std::string pass);
+std::string getQueryStrong(std::string user, std::string pass);
+
+std::string strongFiter(std::string str);
+std::string weakFiter(std::string str);
+
+std::string removeWord(std::string str, std::string word);
 
 /*************************************************************
  * MAIN
@@ -27,19 +31,22 @@ std:: string testUser();
  * It calls genQuery() to build a single string   
  * (an SQL query) to authenticate the user against a database.
  *************************************************************/
-int main() 
+int main()
 {
-    std::string username, password, query, queryTest1;
+    std::string username, password, query, qStrong, qWeak;
 
     std::cout << "Enter your username: ";
-    std::getline(std::cin , username);
+    std::getline(std::cin, username);
     std::cout << "Enter your password: ";
-    std::getline(std::cin , password);
-    
+    std::getline(std::cin, password);
+
     query = genQuery(username, password);
-    std::cout << query << std::endl;
-    
-    queryTest1 = testUser();
+    qStrong = getQueryStrong(username, password);
+    qWeak = getQueryWeak(username, password);
+
+    std::cout << "Vulnerable: " << query << std::endl;
+    std::cout << "Strong: " << qStrong << std::endl;
+    std::cout << "Weak: " << qWeak << std::endl;
 
     return 0;
 }
@@ -51,30 +58,127 @@ int main()
 *****************************************************/
 std::string genQuery(std::string user, std::string pass)
 {
-    std::string query = "SELECT userName FROM users WHERE userName= \'" 
-                      + user 
-                      + "\' AND password = \'" 
-                      + pass
-                      + "\'"; 
+    std::string query = "SELECT userName FROM users WHERE userName= \'" + user + "\' AND password = \'" + pass + "\'";
 
     return query;
 }
 
 /****************************************************
- * Test 1
- * Calls genQuery passes two strings user and password 
- * return one single string (an SQL query) 
+ * getQueryWeak
+ * Filter the input from spaces, semicolons, 
+ * and the keywords sourroneded by spaces: UNION, AND, OR
 *****************************************************/
-std::string testUser()
+std::string getQueryWeak(std::string user, std::string pass)
 {
-    std::string user1, pass1, query1;
+    std::string query = "";
+    user = weakFiter(user);
+    pass = weakFiter(pass);
+    query = genQuery(user, pass);
+    return query;
+}
 
-    //test1: dneves
-    user1 = "dneves02";
-    pass1 = "12_34-D8";
+/****************************************************
+ * getQueryStrong
+ * INPUT: string user, string password
+ * OUTPUT: one single string (an SQL query) with string
+ * mitigation applyed
+ * **************************************************/
+std::string getQueryStrong(std::string user, std::string pass)
+{
+    std::string query = "";
+    user = strongFiter(user);
+    pass = strongFiter(pass);
+    query = genQuery(user, pass);
+    return query;
+}
 
-    query1 = genQuery(user1, pass1);
-    std::cout << "Test 1: " << query1;
+/****************************************************
+ * strongFilter
+ * deletes characters different to: a to z, A to Z, 0 to 9,
+ * and the following set of special characters:
+ * ! # $ * ?
+ * INPUT: string str (a single string)
+ * OUTPUT: one single filtered string 
+*****************************************************/
+std::string strongFiter(std::string str)
+{
+    std::string filteredStr = "";
+    for (int i = 0; i < str.length(); i++)
+    {
+        char ch = str[i];
+        if ((
+                (ch <= 'z' && ch >= 'a') || //Lower case
+                (ch <= 'Z' && ch >= 'A') || //Upper case
+                (ch <= '0' && ch >= '9') || //Digits
+                ch == '!' ||                //Special characters
+                ch == '#' ||
+                ch == '$' ||
+                ch == '*' ||
+                ch == '?'))
+        {
+            filteredStr += ch;
+        }
+    }
+    return filteredStr;
+}
 
-    return query1;
+/****************************************************
+ * weakFilter
+ * Filter the input from spaces, semicolons, dashes 
+ * and the keywords sourroneded by spaces: UNION, AND, OR
+ * INPUT: string str (a single string)
+ * OUTPUT: one single filtered string 
+*****************************************************/
+std::string weakFiter(std::string str)
+{
+    std::string filteredStr = "";
+
+    //Deleting keywords 
+    //Keywords wont work if they are no sorrunded by spaces
+    //However, we delete them as part of the known vulneravilities
+    str = removeWord(str," UNION ");
+    str = removeWord(str," OR ");
+    str = removeWord(str," AND ");
+
+    str = removeWord(str," union ");
+    str = removeWord(str," or ");
+    str = removeWord(str," and ");
+    //We can do more homograpg, but this is a weak filter
+
+    //Deleting semicolons and spaces
+    for (int i = 0; i < str.length(); i++)
+    {
+        char ch = str[i];
+        if (ch != ' ' && ch != ';' && ch != '-')
+        {
+            filteredStr += ch;
+        }
+    }
+    
+
+    return filteredStr;
+}
+
+/**
+ * removeWord
+ * From: https://www.geeksforgeeks.org/remove-a-given-word-from-a-string/
+ * 
+ **/
+std::string removeWord(std::string str, std::string word)
+{
+
+    if (str.find(word) != std::string::npos)
+    {
+        size_t p = -1;
+
+        std::string tempWord = word + " ";
+        while ((p = str.find(word)) != std::string::npos)
+            str.replace(p, tempWord.length(), "");
+
+        tempWord = " " + word;
+        while ((p = str.find(word)) != std::string::npos)
+            str.replace(p, tempWord.length(), "");
+    }
+
+    return str;
 }
