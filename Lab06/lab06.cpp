@@ -58,7 +58,7 @@ std::string genQuery(std::string user, std::string pass)
                       + "\'"; 
 
     return query;
-}dne123
+}
 
 /****************************************************
  * Test 1
