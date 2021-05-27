@@ -19,6 +19,7 @@
 std::string weak();
 std::string strong();
 std:: string genQuery(std::string user, std::string pass);
+std:: string testUser();
 
 /*************************************************************
  * MAIN
@@ -34,11 +35,12 @@ int main()
     std::getline(std::cin , username);
     std::cout << "Enter your password: ";
     std::getline(std::cin , password);
-    query = genQuery(username,password);
-    queryTest1 = testUser(username,password);
     
-    std::cout << query;
-    std::cout << queryTest1;
+    query = genQuery(username, password);
+    std::cout << query << std::endl;
+    
+    queryTest1 = testUser();
+
     return 0;
 }
 
@@ -65,14 +67,14 @@ std::string genQuery(std::string user, std::string pass)
 *****************************************************/
 std::string testUser()
 {
-    std::string username, password, query;
+    std::string user1, pass1, query1;
 
     //test1: dneves
-    username = dneves;
-    password = 1234_D2;
+    user1 = "dneves02";
+    pass1 = "12_34-D8";
 
-    query = genQuery(username,password);
-    std::cout << query;
+    query1 = genQuery(user1, pass1);
+    std::cout << "Test 1: " << query1;
 
-    return query;
+    return query1;
 }
