@@ -1,11 +1,15 @@
-/**
- * 
- * 
- * 
- * 
- * 
- * 
- * */
+/***********************************************************************
+* Program:
+*    Lab 06, SQL Injection Mitigation
+*    Brother Wilson, CS453
+* Authors:
+*    Derek Washburn, Govert Carreno, Abhishek Humagain, Josh Nestman
+*    Davi Neves, Robert Jones
+* Summary:
+*    
+*    
+*    
+************************************************************************/
 
 #include <iostream>
 #include <string>
