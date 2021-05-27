@@ -42,7 +42,9 @@ int main()
 }
 
 /****************************************************
-
+ * GENQUERY
+ * Receives two strings user and password and builds 
+ * one single string (an SQL query) 
 *****************************************************/
 std::string genQuery(std::string user, std::string pass)
 {
