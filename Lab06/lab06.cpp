@@ -6,33 +6,51 @@
 *    Derek Washburn, Govert Carreno, Abhishek Humagain, Josh Nestman
 *    Davi Neves, Robert Jones
 * Summary:
-*    
-*    
+*    This program is a simple authetication code. It prompts the user  
+*    for two inputs, username and password. It then builds a single string   
+*    (an SQL query) to authenticate the user against a SQL database. 
 *    
 ************************************************************************/
 
 #include <iostream>
 #include <string>
 
+//Templates
 std::string weak();
 std::string strong();
+std:: string genQuery(std::string user, std::string pass);
 
+/*************************************************************
+ * MAIN
+ * Prompts the user for two inputs, username and password. 
+ * It calls genQuery() to build a single string   
+ * (an SQL query) to authenticate the user against a database.
+ *************************************************************/
 int main() 
 {
-    std::string user,pass;
+    std::string username, password, query;
 
-    std::cout << "User: ";
-    std::getline(std::cin , user);
-    std::cout << "Password: ";
-    std::getline(std::cin , pass);
+    std::cout << "Enter your username: ";
+    std::getline(std::cin , username);
+    std::cout << "Enter your password: ";
+    std::getline(std::cin , password);
 
-    std::string query = "SELECT userId,userName FROM users WHERE userName= \'" 
+    query = genQuery(username,password);
+    std::cout << query;
+
+    return 0;
+}
+
+/****************************************************
+
+*****************************************************/
+std::string genQuery(std::string user, std::string pass)
+{
+    std::string query = "SELECT userName FROM users WHERE userName= \'" 
                       + user 
                       + "\' AND password = \'" 
                       + pass
                       + "\'"; 
 
-    std::cout << query;
-
-    return 0;
+    return query;
 }
