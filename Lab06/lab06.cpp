@@ -20,8 +20,8 @@ std::string genQuery(std::string user, std::string pass);
 std::string getQueryWeak(std::string user, std::string pass);
 std::string getQueryStrong(std::string user, std::string pass);
 
-std::string strongFiter(std::string str);
-std::string weakFiter(std::string str);
+std::string strongFilter(std::string str);
+std::string weakFilter(std::string str);
 
 std::string removeWord(std::string str, std::string word);
 
@@ -75,8 +75,8 @@ std::string genQuery(std::string user, std::string pass)
 std::string getQueryWeak(std::string user, std::string pass)
 {
     std::string query = "";
-    user = weakFiter(user);
-    pass = weakFiter(pass);
+    user = weakFilter(user);
+    pass = weakFilter(pass);
     query = genQuery(user, pass);
     return query;
 }
@@ -90,8 +90,8 @@ std::string getQueryWeak(std::string user, std::string pass)
 std::string getQueryStrong(std::string user, std::string pass)
 {
     std::string query = "";
-    user = strongFiter(user);
-    pass = strongFiter(pass);
+    user = strongFilter(user);
+    pass = strongFilter(pass);
     query = genQuery(user, pass);
     return query;
 }
@@ -104,7 +104,7 @@ std::string getQueryStrong(std::string user, std::string pass)
  * INPUT: string str (a single string)
  * OUTPUT: one single filtered string 
 *****************************************************/
-std::string strongFiter(std::string str)
+std::string strongFilter(std::string str)
 {
     std::string filteredStr = "";
     for (int i = 0; i < str.length(); i++)
@@ -133,7 +133,7 @@ std::string strongFiter(std::string str)
  * INPUT: string str (a single string)
  * OUTPUT: one single filtered string 
 *****************************************************/
-std::string weakFiter(std::string str)
+std::string weakFilter(std::string str)
 {
     std::string filteredStr = "";
 
