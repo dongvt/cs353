@@ -58,7 +58,11 @@ int main()
 *****************************************************/
 std::string genQuery(std::string user, std::string pass)
 {
-    std::string query = "SELECT userName FROM users WHERE userName= \'" + user + "\' AND password = \'" + pass + "\'";
+    std::string query = "SELECT userName FROM users WHERE userName= \'" 
+    + user 
+    + "\' AND password = \'" 
+    + pass 
+    + "\'";
 
     return query;
 }
@@ -109,7 +113,7 @@ std::string strongFiter(std::string str)
         if ((
                 (ch <= 'z' && ch >= 'a') || //Lower case
                 (ch <= 'Z' && ch >= 'A') || //Upper case
-                (ch <= '0' && ch >= '9') || //Digits
+                (isdigit(ch)) || //Digits
                 ch == '!' ||                //Special characters
                 ch == '#' ||
                 ch == '$' ||
@@ -143,7 +147,7 @@ std::string weakFiter(std::string str)
     str = removeWord(str," union ");
     str = removeWord(str," or ");
     str = removeWord(str," and ");
-    //We can do more homograpg, but this is a weak filter
+    //We can do more homograph, but this is a weak filter
 
     //Deleting semicolons and spaces
     for (int i = 0; i < str.length(); i++)
