@@ -118,7 +118,7 @@ std::string strongFilter(std::string str)
                 ch == '#' ||
                 ch == '$' ||
                 ch == '*' ||
-                ch == '?'))
+                ch == '?')) 
         {
             filteredStr += ch;
         }
@@ -159,7 +159,6 @@ std::string weakFilter(std::string str)
         }
     }
     
-
     return filteredStr;
 }
 
