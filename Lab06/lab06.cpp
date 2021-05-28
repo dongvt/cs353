@@ -59,22 +59,3 @@ std::string genQuery(std::string user, std::string pass)
 
     return query;
 }
-
-/****************************************************
- * Test 1
- * Calls genQuery passes two strings user and password 
- * return one single string (an SQL query) 
-*****************************************************/
-std::string testUser()
-{
-    std::string user1, pass1, query1;
-
-    //test1: dneves
-    user1 = "dneves02";
-    pass1 = "12_34-D8";
-
-    query1 = genQuery(user1, pass1);
-    std::cout << "Test 1: " << query1  << std::endl;
-
-    return query1;
-}
