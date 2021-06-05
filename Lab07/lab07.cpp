@@ -109,7 +109,7 @@ void two(long number)              // 345678
         << "-----------------+\n";
 
    char * current;
-   for (long i = 100; i >= -4; i--)   // You may need to change 24 to another number
+   for (long i = 40; i >= -4; i--)   // You may need to change 24 to another number
    {
       ////////////////////////////////////////////////
       // Insert code here to display the callstack
@@ -127,11 +127,11 @@ void two(long number)              // 345678
    ////////////////////////////////////////////////
    // Insert code here to change the variables in main()
    
-   pChar = (char * ) &bow; //The address converted to char pointer
+   pChar = (char *) &bow; //The address converted to char pointer
    //Look in each address for *MAIN**
    while (string(++pChar) != "*MAIN**"){
    }
-   cout << pChar << endl;
+   cout << pChar << (void *)pChar << endl;
 
    // change text in main() to "*main**"
 
