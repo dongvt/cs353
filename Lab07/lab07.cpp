@@ -107,26 +107,81 @@ void two(long number)              // 345678
         << "-------------------+"
         << "-------------------+"
         << "-----------------+\n";
-   for (long i = 24; i >= -4; i--)   // You may need to change 24 to another number
+
+   char * current;
+   for (long i = 100; i >= -4; i--)   // You may need to change 24 to another number
    {
       ////////////////////////////////////////////////
       // Insert code here to display the callstack
-      
+      current = (char*)((char*) &bow + 8 * i);
+
+      cout << '[' << setw(2) << i << ']'
+         << setw(15) << (void*)current
+         << setw(20) << hex << showbase << *(long*)current
+         << setw(20) << dec << *(long*)current
+         << setw(18) << displayCharArray(current) << endl;
       //
       ////////////////////////////////////////////////
    }
 
    ////////////////////////////////////////////////
    // Insert code here to change the variables in main()
-                                                                                
+   
+   pChar = (char * ) &bow; //The address converted to char pointer
+   //Look in each address for *MAIN**
+   while (string(++pChar) != "*MAIN**"){
+   }
+   cout << pChar << endl;
+
    // change text in main() to "*main**"
+
+   //connot convert string to char pointer easier, so, change one by one
+   pChar[1] = 'm';
+   pChar[2] = 'a';
+   pChar[3] = 'i';
+   pChar[4] = 'n';
+
+   cout << pChar << endl;
 
    // change number in main() to 654321
 
+   pLong = (long *) &bow;
+   while(*pLong != 123456)
+   {
+      pLong++; //increment the pointer address by one byte
+   }
+   cout << *pLong << endl;
+   //once found just change the value in that address
+   *pLong = 654321;
+   cout << *pLong << endl;
+
    // change pointerFunction in main() to point to pass
+   pLong = (long *) &bow;
+   while(*pLong != (long)fail) //This time we look for the function, so convert the addres to long pointer again
+   {
+      pLong++; //increment the pointer address by one byte
+   }
+   cout << *pLong << endl;
+   //once found, just change the value in that address
+   *pLong = (long)pass;
 
+   cout << *pLong << endl;
    // change message in main() to point to passMessage
+   
+   pLong = (long *) &bow;
+   while(*pLong != (long)failMessage) //failMessage is a global variable so it shiuold be available here.
+   {
+      pLong++; //increment the pointer address by one byte
+   }
+   pChar = (char *) *pLong; //Convert the pLong value to char and be able to print and check
+   cout << string(pChar)<< endl;
+   //once found, just change the value in that address
+   *pLong = (long)passMessage; //convert the pointer to long and store it in pLong
+                              //Since pLong is pointing to the same value than message in main is pointing
+                              //It should change the message value too.
 
+   pChar = (char *) *pLong;
+   cout << string(pChar)<< endl;
    //
    ////////////////////////////////////////////////
 }
