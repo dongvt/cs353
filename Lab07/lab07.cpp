@@ -6,10 +6,9 @@
 *    Derek Washburn, Govert Carreno, Abhishek Humagain, Josh Nestman
 *    Davi Neves, Robert Jones
 * Summary:
-*    This program prompts the user to enter two file paths.
-*    The paths are compared, taking special characters such as
-*    ".", "..", and "~" into account, and the program informs the
-*    user whether the two paths are homographs of each other.
+*    This program explores how our compiler utilizes the call stack and 
+*    the heap segments of memory. 
+*
 ************************************************************************/
 
 #include <iostream>
@@ -173,6 +172,7 @@ void two(long number)              // 345678
    {
       pLong++; //increment the pointer address by one byte
    }
+   
    pChar = (char *) *pLong; //Convert the pLong value to char and be able to print and check
    cout << string(pChar)<< endl;
    //once found, just change the value in that address
