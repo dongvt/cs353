@@ -6,10 +6,9 @@
 *    Derek Washburn, Govert Carreno, Abhishek Humagain, Josh Nestman
 *    Davi Neves, Robert Jones
 * Summary:
-*    This program prompts the user to enter two file paths.
-*    The paths are compared, taking special characters such as
-*    ".", "..", and "~" into account, and the program informs the
-*    user whether the two paths are homographs of each other.
+*    This program explores how our compiler utilizes the call stack and 
+*    the heap segments of memory. 
+*
 ************************************************************************/
 
 #include <iostream>
@@ -156,26 +155,27 @@ void two(long number)              // 345678
 
    // change pointerFunction in main() to point to pass
    pLong = (long *) &bow;
-   while(*pLong != (long)fail) //This time we look for the function, so convert the addres to long pointer again
+   while(*pLong != (long long)fail) //This time we look for the function, so convert the addres to long pointer again
    {
       pLong++; //increment the pointer address by one byte
    }
    cout << *pLong << endl;
    //once found, just change the value in that address
-   *pLong = (long)pass;
+   *pLong = (long long)pass;
 
    cout << *pLong << endl;
    // change message in main() to point to passMessage
    
    pLong = (long *) &bow;
-   while(*pLong != (long)failMessage) //failMessage is a global variable so it shiuold be available here.
+   while(*pLong != (long long)failMessage) //failMessage is a global variable so it shiuold be available here.
    {
       pLong++; //increment the pointer address by one byte
    }
+   
    pChar = (char *) *pLong; //Convert the pLong value to char and be able to print and check
    cout << string(pChar)<< endl;
    //once found, just change the value in that address
-   *pLong = (long)passMessage; //convert the pointer to long and store it in pLong
+   *pLong = (long long)passMessage; //convert the pointer to long and store it in pLong
                               //Since pLong is pointing to the same value than message in main is pointing
                               //It should change the message value too.
 
