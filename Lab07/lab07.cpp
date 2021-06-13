@@ -142,7 +142,6 @@ void two(long number)              // 345678
    pChar[4] = 'n';
 
    cout << pChar << endl;
-
    // change number in main() to 654321
 
    pLong = (long *) &bow;
