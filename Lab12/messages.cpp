@@ -18,16 +18,29 @@
 
 using namespace std;
 
+Control Messages::getMessageControl(int id)
+{
+   for (list<Message>::const_iterator it = messages.begin();
+        it != messages.end();
+        ++it)
+      if (it->getID() == id)
+         return it->getControl();
+
+   //If no control found just return SECRET for max security
+   return SECRET;
+}
+
 /***********************************************
  * MESSAGES :: DISPLAY
  * display the list of messages
  ***********************************************/
-void Messages::display() const
+void Messages::display(Control userControl) const
 {
-   for (list <Message> :: const_iterator it = messages.begin();
+   for (list<Message>::const_iterator it = messages.begin();
         it != messages.end();
         ++it)
-      it->displayProperties();
+      if (securityControlRead(it->getControl(), userControl))
+         it->displayProperties();
 }
 
 /***********************************************
@@ -36,7 +49,7 @@ void Messages::display() const
  **********************************************/
 void Messages::show(int id) const
 {
-   for (list <Message> :: const_iterator it = messages.begin();
+   for (list<Message>::const_iterator it = messages.begin();
         it != messages.end();
         ++it)
       if (it->getID() == id)
@@ -47,9 +60,9 @@ void Messages::show(int id) const
  * MESSAGES :: UPDATE
  * update one single message
  ***********************************************/
-void Messages::update(int id, const string & text)
+void Messages::update(int id, const string &text)
 {
-   for (list <Message> :: iterator it = messages.begin();
+   for (list<Message>::iterator it = messages.begin();
         it != messages.end();
         ++it)
       if (it->getID() == id)
@@ -62,7 +75,7 @@ void Messages::update(int id, const string & text)
  **********************************************/
 void Messages::remove(int id)
 {
-   for (list <Message> :: iterator it = messages.begin();
+   for (list<Message>::iterator it = messages.begin();
         it != messages.end();
         ++it)
       if (it->getID() == id)
@@ -73,11 +86,12 @@ void Messages::remove(int id)
  * MESSAGES :: ADD
  * add a new message
  **********************************************/
-void Messages::add(const string & text,
-                   const string & author,
-                   const string & date)
+void Messages::add(const string &text,
+                   const string &author,
+                   const string &date,
+                   Control control)
 {
-   Message message(text, author, date);
+   Message message(text, author, date, control);
    messages.push_back(message);
 }
 
@@ -85,7 +99,7 @@ void Messages::add(const string & text,
  * MESSAGES :: READ MESSAGES
  * read the messages from a file
  ***********************************************/
-void Messages::readMessages(const char * fileName)
+void Messages::readMessages(const char *fileName)
 {
    // open the file
    ifstream fin(fileName);
@@ -111,7 +125,8 @@ void Messages::readMessages(const char * fileName)
 
       if (!fin.fail())
       {
-         Message message(text, author, date);
+         Message message(text, author, date, SECRET); //Set secret as default for mac security
+         message.setControl(convertToControl(textControl));
          messages.push_back(message);
       }
    }

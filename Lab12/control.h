@@ -22,3 +22,5 @@ enum Control {
 bool securityControlRead(Control assetControl, Control subjectControl);
 
 bool securityControlWrite(Control assetControl, Control subjectControl);
+
+Control convertToControl(std::string controlString);

@@ -53,8 +53,10 @@ Interact::Interact(const string & userName,
 void Interact::show() const
 {
     Control userControl = users[idFromUser(userName)].control;
-    //Control messageControl = promptForId("display");
-   pMessages->show(promptForId("display"));
+    Control messageControl = pMessages->getMessageControl(promptForId("display"));
+   
+    if(securityControlRead(messageControl,userControl))
+      pMessages->show(promptForId("display"));
 }
    
 /****************************************************
@@ -63,7 +65,8 @@ void Interact::show() const
  ***************************************************/
 void Interact::display() const
 {
-   pMessages->display();
+    Control userControl = users[idFromUser(userName)].control;
+   pMessages->display(userControl);
 }
 
 /****************************************************
@@ -74,7 +77,8 @@ void Interact::add()
 {
    pMessages->add(promptForLine("message"),
                   userName,
-                  promptForLine("date"));
+                  promptForLine("date"),
+                  users[idFromUser(userName)].control);
 }
 
 /****************************************************
@@ -84,7 +88,13 @@ void Interact::add()
 void Interact::update()
 {
    int id = promptForId("update");
-   pMessages->update(id,promptForLine("message"));
+    Control userControl = users[idFromUser(userName)].control;
+    Control messageControl = pMessages->getMessageControl(id);
+   
+   if(securityControlWrite(messageControl,userControl))
+      pMessages->update(id,promptForLine("message"));
+   else
+      cout <<"Access denied" << endl;
 }
 
 /****************************************************
@@ -93,7 +103,14 @@ void Interact::update()
  ***************************************************/
 void Interact::remove()
 {
-   pMessages->remove(promptForId("delete"));
+    int id = promptForId("delete");
+   Control userControl = users[idFromUser(userName)].control;
+   Control messageControl = pMessages->getMessageControl(id);
+   if(securityControlWrite(messageControl,userControl))
+      pMessages->remove(id);
+   else
+      cout <<"Access denied" << endl;
+   
 }
 
 /****************************************************

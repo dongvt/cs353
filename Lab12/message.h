@@ -26,7 +26,8 @@ public:
    // the most commonly used constructor: create a message
    Message(const std::string & text,
            const std::string & author,
-           const std::string & date);
+           const std::string & date,
+           Control control);
 
    // determine the unique ID of this message
    int getID() const { return id; }
@@ -42,7 +43,12 @@ public:
 
    // clear out a message
    void clear();
+
+   Control getControl() const {
+      return control;
+   };
    
+   Control setControl(Control control);
 private:
    int id;                   // the unique ID of this message
    static int idNext;        // the id of the next message created
@@ -50,4 +56,6 @@ private:
    std::string text;         // the textual content of this message
    std::string author;       // the author of this message
    std::string date;         // the date this message was created
+
+   Control control;
 };

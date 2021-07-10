@@ -30,8 +30,10 @@ Message ::  Message()
  **************************************************/
 Message::Message(const string & text,
                  const string & author,
-                 const string & date)
+                 const string & date,
+                 Control control)
 {
+   this->control = control;
    this->text = text;
    this->author = author;
    this->date = date;
@@ -88,4 +90,8 @@ void Message::clear()
    empty = true;
 }
 
+
+Control Message::setControl(Control control) {
+   this->control = control;
+}
 int Message::idNext = 100;
