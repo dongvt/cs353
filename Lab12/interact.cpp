@@ -14,6 +14,7 @@
 #include "messages.h" // to interact with the collection of messages
 #include "control.h"  // all the Bell-LaPadula stuff
 #include "interact.h" // the interact class and User structure
+#include "control.h"  //Access control Bell-LaPaula
 
 using namespace std;
 
@@ -23,11 +24,11 @@ using namespace std;
  *************************************************************/
 const User users[] =
 {
-   { "AdmiralAbe",     "password" },  
-   { "CaptainCharlie", "password" }, 
-   { "SeamanSam",      "password" },
-   { "SeamanSue",      "password" },
-   { "SeamanSly",      "password" }
+   { "AdmiralAbe",     "password", SECRET},  
+   { "CaptainCharlie", "password", PRIVILEGED}, 
+   { "SeamanSam",      "password", CONFIDENTIAL},
+   { "SeamanSue",      "password", CONFIDENTIAL},
+   { "SeamanSly",      "password", CONFIDENTIAL}
 };
 
 const int ID_INVALID = -1;
@@ -51,6 +52,8 @@ Interact::Interact(const string & userName,
  ****************************************************/
 void Interact::show() const
 {
+    Control userControl = users[idFromUser(userName)].control;
+    //Control messageControl = promptForId("display");
    pMessages->show(promptForId("display"));
 }
    
@@ -81,8 +84,7 @@ void Interact::add()
 void Interact::update()
 {
    int id = promptForId("update");
-   pMessages->update(id,
-                     promptForLine("message"));
+   pMessages->update(id,promptForLine("message"));
 }
 
 /****************************************************
