@@ -125,7 +125,7 @@ void Messages::readMessages(const char *fileName)
 
       if (!fin.fail())
       {
-         Message message(text, author, date, SECRET); //Set secret as default for mac security
+         Message message(text, author, date, SECRET); //Set secret as default for max security
          message.setControl(convertToControl(textControl));
          messages.push_back(message);
       }
