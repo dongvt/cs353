@@ -12,10 +12,10 @@
 class Cipher06 : public Cipher
 {
 public:
-   virtual std::string getPseudoAuth()  { return "pseudocode author"; }
-   virtual std::string getCipherName()  { return "cipher name"; }
-   virtual std::string getEncryptAuth() { return "encrypt author"; }
-   virtual std::string getDecryptAuth() { return "decrypt author"; }
+   virtual std::string getPseudoAuth()  { return "Govert Carreno"; }
+   virtual std::string getCipherName()  { return "Mlecchita vikalpa (Or KamaSutra Cipher)"; }
+   virtual std::string getEncryptAuth() { return "Govert Carreno"; }
+   virtual std::string getDecryptAuth() { return "Govert Carreno"; }
 
    /***********************************************************
     * GET CIPHER CITATION
@@ -23,7 +23,7 @@ public:
     ***********************************************************/
    virtual std::string getCipherCitation()
    {
-      return std::string("citation");
+      return std::string("http://www.civilwarsignals.org/cipher/kamasutra.html");
    }
    
    /**********************************************************
@@ -36,10 +36,19 @@ public:
 
       // TODO: please format your pseudocode
       // The encrypt pseudocode
-      str =  "insert the encryption pseudocode\n";
+      str = "encrypt(plainText, password)\n";
+	   str += "\tFOR EACH letter in plaintext, index is i\n";
+		str += "\t\tLetter[i] <- password[lowerkey of letter[i] - 97] //97 substract the char value to convert into index";
 
       // The decrypt pseudocode
-      str += "insert the decryption pseudocode\n";
+      str += "decrypt(plainText, password)\n";
+      str += "\tFOR EACH letter in plaintext, index is i\n";
+      str += "\tletterIndex <- 0\n";
+      str += "\t\tFOR EACH letter in password, index is j\n";
+      str += "\t\t\tif password[j] = plainText[i]\n";
+      str += "\t\t\t\tletterIndex<-j //Get the letter index in the key\n";
+      str += "\tplainText[j] <- letter + 97 //Convert the index to lowercase\n";
+
 
       return str;
    }
@@ -52,7 +61,12 @@ public:
                                const std::string & password)
    {
       std::string cipherText = plainText;
-      // TODO - Add your code here
+
+      for(int i = 0; i< cipherText.length();i++){
+         cipherText[i] = password[tolower(cipherText[i])- 97] ;
+      }
+      
+
       return cipherText;
    }
 
@@ -64,7 +78,16 @@ public:
                                const std::string & password)
    {
       std::string plainText = cipherText;
-      // TODO - Add your code here
+
+      for(int i = 0; i< plainText.length();i++){
+         int letter = 0;
+         for(int j= 0;j<password.length();j++) {
+            if (password[j] == plainText[i]) {
+               letter = j;
+            }
+         }
+         plainText[i] = letter + 97;
+      }
       return plainText;
    }
 };

@@ -11,6 +11,7 @@
 #include <iomanip>
 #include <string>
 #include <vector>
+#include <ctype.h>
 
 #include "cipher.h"    // Base Cipher Class
 #include "example.h"   // Bro Helfrich example Cipher
