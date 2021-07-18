@@ -38,7 +38,7 @@ public:
       // The encrypt pseudocode
       str = "encrypt(plainText, password)\n";
 	   str += "\tFOR EACH letter in plaintext, index is i\n";
-		str += "\t\tLetter[i] <- password[lowerkey of letter[i] - 97] //97 substract the char value to convert into index";
+		str += "\t\tLetter[i] <- password[lowerkey of letter[i] - 97] //97 substract the char value to convert into index\n\n";
 
       // The decrypt pseudocode
       str += "decrypt(plainText, password)\n";
@@ -55,7 +55,7 @@ public:
 
    /**********************************************************
     * ENCRYPT
-    * TODO: ADD description
+    * TODO: Codes the plainText based on the password
     **********************************************************/
    virtual std::string encrypt(const std::string & plainText,
                                const std::string & password)
@@ -72,7 +72,7 @@ public:
 
    /**********************************************************
     * DECRYPT
-    * TODO: ADD description
+    * TODO: Decodes the plainText based on the password
     **********************************************************/
    virtual std::string decrypt(const std::string & cipherText,
                                const std::string & password)
